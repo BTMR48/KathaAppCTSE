@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'LoginScreen.dart';
+import 'screens/login&signup&splashscreen/loginScreen.dart';
 Future<void> main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();

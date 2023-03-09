@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "634640486259",
+    "project_id": "ctsekathaapp",
+    "storage_bucket": "ctsekathaapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634640486259:android:141a870af10f307e5abf06",
+        "android_client_info": {
+          "package_name": "com.btmr.kathaappctse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634640486259-7p4qft97cmpcmnj9ucd7ckoieb3vplng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABzONPT5V-VD6IKQ7Qm3Jdusu3Q6hQHgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634640486259-7p4qft97cmpcmnj9ucd7ckoieb3vplng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "634640486259-oaercbo6opnen8s7hqmroh268vq6g836.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.btmr.kathaappctse"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
