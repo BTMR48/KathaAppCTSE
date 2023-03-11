@@ -11,7 +11,6 @@ import '../homeScreen.dart';
 
 
 
-
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
@@ -89,7 +88,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           }
           //reg expression for email validation
           if (!RegExp(
-                  "^[a-zA-Z0-9.a-zA-Z0-9.!#%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+              "^[a-zA-Z0-9.a-zA-Z0-9.!#%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
               .hasMatch(value)) {
             return ("Please Enter Valid Email");
           }
@@ -254,6 +253,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     Navigator.pushAndRemoveUntil(
         (context),
         MaterialPageRoute(builder: (context) => HomeScreen()),
-        (route) => false);
+            (route) => false);
   }
 }
