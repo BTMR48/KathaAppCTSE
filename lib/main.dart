@@ -1,6 +1,10 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kathaappctse/screens/homeScreen.dart';
+import 'package:kathaappctse/screens/voices/client/addvoice.dart';
+
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'screens/login&signup&splashscreen/loginScreen.dart';
 
@@ -9,6 +13,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+
   runApp(MyApp());
 }
 
@@ -19,12 +25,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CTSE Lab Test',
-      theme: ThemeData(
-        primarySwatch: Colors.pink,
-      ),
-      home:  const LoginScreen(),
-      debugShowCheckedModeBanner: false,
+          title: 'CTSE Lab Test',
+          theme: ThemeData(
+            primarySwatch: Colors.pink,
+          ),
+          home: HomeScreen(),
+          debugShowCheckedModeBanner: false,
+
+
     );
   }
 }
