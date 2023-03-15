@@ -221,7 +221,7 @@ class _UpdateAudioRecorderState extends State<UpdateAudioRecorder> {
         .collection('audio')
         .doc(widget.audioId!)
         .update({
-      'topic': _titleController.text,
+      'title': _titleController.text,
       'url': _voiceUrlController.text ?? audioUrl, // Use audioUrl here
     });
   }
