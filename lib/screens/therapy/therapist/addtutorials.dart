@@ -64,11 +64,10 @@ class _AddTutorialsState extends State<AddTutorials> {
     await ref.putFile(_file!);
     downloadURL = await ref.getDownloadURL();
 
-    await firebaseFirestore.collection("articles").doc().set({
+    await firebaseFirestore.collection("tutorials").doc().set({
       "topic": sampledata1.text,
       "description": sampledata2.text,
       "url": downloadURL,
-      "type": "video"
     }).whenComplete(() =>
     {
       Navigator.of(context).push(
@@ -80,12 +79,12 @@ class _AddTutorialsState extends State<AddTutorials> {
   TextEditingController sampledata1 = new TextEditingController();
   TextEditingController sampledata2 = new TextEditingController();
 
-  //snackbar for  showing error
+
+//snackbar for  showing error
   showSnackBar(String snackText, Duration d) {
     final snackBar = SnackBar(content: Text(snackText), duration: d);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kathaappctse/screens/therapy/therapist/addtutorials.dart';
+import 'package:kathaappctse/screens/therapy/therapist/viewAllTutorials.dart';
 import 'package:kathaappctse/screens/voices/client/addvoice.dart';
+import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,13 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
             children: <Widget>[
               ElevatedButton(onPressed:(){
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AudioRecorder() ) ) ;},
+                    MaterialPageRoute(builder: (context) => AllVoiceClientScreen() ) ) ;},
                 child: Text(
                 "Voices",
               ),),
               ElevatedButton(onPressed:(){
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AddTutorials() ) ) ;},
+                    MaterialPageRoute(builder: (context) => AllTutorialAdminScreen() ) ) ;},
                 child: Text(
                     "Therapy Page"
                 ),),
