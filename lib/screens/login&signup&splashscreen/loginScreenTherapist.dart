@@ -137,52 +137,7 @@ class _LoginTherapistScreenState extends State<LoginTherapistScreen> {
                         SizedBox(height: 35),
                         loginButton,
                         SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Don't have an account ? ",
-                                style: TextStyle(color: Colors.black)),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            RegistrationScreen()));
-                              },
-                              child: const Text(
-                                "SignUp",
-                                style: TextStyle(
-                                    color: Colors.redAccent,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Are You therapist ? ",
-                                style: TextStyle(color: Colors.black)),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            RegistrationScreen()));
-                              },
-                              child: const Text(
-                                "Therapist Login",
-                                style: TextStyle(
-                                    color: Colors.redAccent,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ),
-                          ],
-                        ),
+
                       ],
                     ),
                   ),

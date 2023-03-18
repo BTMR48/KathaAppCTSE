@@ -100,39 +100,64 @@ class _ViewOneTutorialScreenState extends State<ViewOneTutorialScreen> {
           // ),
         ],
       ),
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(Config.app_background), fit: BoxFit.fill),
-           ),
+      body: loading
+          ? Center(child: CircularProgressIndicator())
+          : SafeArea(
+            child: Container(
+              width:400,
+              height: height* 1,
+              decoration: BoxDecoration(
 
-        child: loading
-            ? Center(child: CircularProgressIndicator())
-            : Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(Config.app_background), fit: BoxFit.fill),
-          ),
-              child: SafeArea(
-                child: SingleChildScrollView(
-                      child: Padding(
+                image: DecorationImage(
 
-                        padding: EdgeInsets.only(top: 20),
-                        child: Column(
-                          children: [
-                            SizedBox(
+                    image: AssetImage(Config.app_background), fit: BoxFit.fill),
+              ),
+              child: SingleChildScrollView(
+                    child: Padding(
+
+                      padding: EdgeInsets.only(top: 20),
+                      child: Column(
+                        children: [
+                          Container(
+                            color: Colors.black,
+                            child: SizedBox(
+
                                 height:height * 0.3,
                                 width:width * 1,
                                 child: Chewie(controller: chewieController)),
+                          ),
 
-                            SizedBox(height: 26.0),
-                            Center(
+                          SizedBox(height: 26.0),
+                          Center(
+                            child: Text(
+                              oneTutorial!.topic,
+                              style: TextStyle(
+                                color: Colors.blueAccent,
+                                fontFamily: 'Varela',
+                                fontSize: 32.0,
+                                shadows: [
+                                  Shadow(
+                                    blurRadius: 5.0,
+                                    color: Colors.black.withOpacity(0.3),
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(height: 16.0),
+                          Center(
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width - 52.0,
                               child: Text(
-                                oneTutorial!.topic,
+                                oneTutorial!.description,
+                                maxLines: 4,
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.white,
                                   fontFamily: 'Varela',
-                                  fontSize: 32.0,
+                                  fontSize: 16.0,
+                                  color: Colors.grey,
                                   shadows: [
                                     Shadow(
                                       blurRadius: 5.0,
@@ -143,42 +168,18 @@ class _ViewOneTutorialScreenState extends State<ViewOneTutorialScreen> {
                                 ),
                               ),
                             ),
-
-                            SizedBox(height: 16.0),
-                            Center(
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width - 52.0,
-                                child: Text(
-                                  oneTutorial!.description,
-                                  maxLines: 4,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'Varela',
-                                    fontSize: 16.0,
-                                    color: Colors.white,
-                                    shadows: [
-                                      Shadow(
-                                        blurRadius: 5.0,
-                                        color: Colors.black.withOpacity(0.3),
-                                        offset: Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            SizedBox(height: 16.0),
+                          ),
 
 
-                          ],
-                        ),
+
+
+                        ],
                       ),
                     ),
-
-              ),
+                  ),
             ),
-      ),
+
+          ),
 
     );
   }
