@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../utils/config.dart';
+import '../HomeScreenTherapist.dart';
 import '../homeScreenUser.dart';
 import 'RegistrationScreen.dart';
-import 'loginScreenTherapist.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginTherapistScreen extends StatefulWidget {
+  const LoginTherapistScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _LoginTherapistScreenState createState() => _LoginTherapistScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginTherapistScreenState extends State<LoginTherapistScreen> {
   //form key
   final _formKey = GlobalKey<FormState>();
   //editing controller
@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Container(
           decoration:  BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(Config.app_gif1), fit: BoxFit.fill),
+                image: AssetImage(Config.app_background2), fit: BoxFit.fill),
           ),
           child: Center(
             child: SingleChildScrollView(
@@ -137,52 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 35),
                         loginButton,
                         SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Don't have an account ? ",
-                                style: TextStyle(color: Colors.black)),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            RegistrationScreen()));
-                              },
-                              child: const Text(
-                                "SignUp",
-                                style: TextStyle(
-                                    color: Colors.redAccent,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Are You therapist ? ",
-                                style: TextStyle(color: Colors.black)),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            LoginTherapistScreen()));
-                              },
-                              child: const Text(
-                                "Login",
-                                style: TextStyle(
-                                    color: Colors.redAccent,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ),
-                          ],
-                        ),
+
                       ],
                     ),
                   ),
@@ -201,9 +156,9 @@ class _LoginScreenState extends State<LoginScreen> {
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((uid) => {
-        Fluttertoast.showToast(msg: "Login Successful"),
+        Fluttertoast.showToast(msg: "Login Successful Therapist"),
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => HomeScreen())),
+            MaterialPageRoute(builder: (context) => HomeScreenTherapist())),
       })
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);

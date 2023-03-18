@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kathaappctse/screens/login&signup&splashscreen/userModel.dart';
 
-import '../homeScreen.dart';
+import '../../utils/config.dart';
+import '../homeScreenUser.dart';
 
 
 
@@ -170,44 +171,70 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
     );
     return Scaffold(
-      backgroundColor: Colors.white,
+
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        elevation: 0,
+        elevation: 0.0,
+        centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.red),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Color(0xFF545D68),
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
+        title: Text(
+          'Voices',
+          style: TextStyle(
+            fontFamily: 'Varela',
+            fontSize: 24.0,
+            color: const Color(0xFF545D68),
+          ),
+        ),
+        actions: [
+          // IconButton(
+          //   icon: const Icon(
+          //     Icons.notifications_none,
+          //     color: Color(0xFF545D68),
+          //   ),
+          //   onPressed: () {},
+          // ),
+        ],
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(36.0),
-              child: Form(
-                key: _formkey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
+      body: Container(
+        decoration:  BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(Config.app_gif1), fit: BoxFit.fill),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(36.0),
+                child: Form(
+                  key: _formkey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
 
-                    SizedBox(height: 45),
-                    firstNameField,
-                    SizedBox(height: 20),
-                    secondNameField,
-                    SizedBox(height: 20),
-                    emailField,
-                    SizedBox(height: 20),
-                    passwordField,
-                    SizedBox(height: 20),
-                    confirmPasswordField,
-                    SizedBox(height: 20),
-                    signUpButton,
-                    SizedBox(height: 15),
-                  ],
+                      SizedBox(height: 45),
+                      firstNameField,
+                      SizedBox(height: 20),
+                      secondNameField,
+                      SizedBox(height: 20),
+                      emailField,
+                      SizedBox(height: 20),
+                      passwordField,
+                      SizedBox(height: 20),
+                      confirmPasswordField,
+                      SizedBox(height: 20),
+                      signUpButton,
+                      SizedBox(height: 15),
+                    ],
+                  ),
                 ),
               ),
             ),

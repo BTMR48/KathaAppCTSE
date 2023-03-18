@@ -1,4 +1,4 @@
-
+/// don't using
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kathaappctse/screens/homeScreen.dart';
+import 'package:kathaappctse/screens/homeScreenUser.dart';
 import 'package:video_player/video_player.dart';
 
 class AddTutorials extends StatefulWidget {
@@ -64,11 +64,10 @@ class _AddTutorialsState extends State<AddTutorials> {
     await ref.putFile(_file!);
     downloadURL = await ref.getDownloadURL();
 
-    await firebaseFirestore.collection("articles").doc().set({
+    await firebaseFirestore.collection("tutorials").doc().set({
       "topic": sampledata1.text,
       "description": sampledata2.text,
       "url": downloadURL,
-      "type": "video"
     }).whenComplete(() =>
     {
       Navigator.of(context).push(
@@ -80,12 +79,12 @@ class _AddTutorialsState extends State<AddTutorials> {
   TextEditingController sampledata1 = new TextEditingController();
   TextEditingController sampledata2 = new TextEditingController();
 
-  //snackbar for  showing error
+
+//snackbar for  showing error
   showSnackBar(String snackText, Duration d) {
     final snackBar = SnackBar(content: Text(snackText), duration: d);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery
