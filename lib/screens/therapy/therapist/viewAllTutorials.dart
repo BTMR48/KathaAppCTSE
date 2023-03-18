@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:kathaappctse/screens/therapy/therapist/tutorialModel.dart';
 import 'package:kathaappctse/screens/therapy/therapist/viewOneTutorial.dart';
 
+import '../../../utils/config.dart';
 import '../../login&signup&splashscreen/loginScreen.dart';
 import 'ViewOneTutorialUpdate.dart';
 import 'addtutorials.dart';
@@ -70,7 +71,7 @@ class _AllTutorialAdminScreenState extends State<AllTutorialAdminScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tutorial List'),
+        title: Text('Therapist Tutorial List'),
         actions: [
           IconButton(
             onPressed: () {
@@ -80,129 +81,135 @@ class _AllTutorialAdminScreenState extends State<AllTutorialAdminScreen> {
           )
         ],
       ),
-      body: Scrollbar(
-        isAlwaysShown: true,
-        child: SizedBox(
-          width: width * 1,
-          height: height * 1,
-          child: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection('tutorials').snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else {
-                List<Tutorial> data = mapRecords(snapshot.data);
-                return ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (context, index) {
-                    return SizedBox(
-                      height: height * 0.20,
-                      child: Card(
-                        color: Colors.blue.withOpacity(0.4),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: Colors.redAccent,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(Config.app_background2), fit: BoxFit.fill),
+        ),
+        child: Scrollbar(
+          isAlwaysShown: true,
+          child: SizedBox(
+            width: width * 1,
+            height: height * 1,
+            child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance.collection('tutorials').snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  List<Tutorial> data = mapRecords(snapshot.data);
+                  return ListView.builder(
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        height: height * 0.20,
+                        child: Card(
+                          color: Colors.blue.withOpacity(0.4),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: Colors.redAccent,
+                            ),
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            SizedBox(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
                                 child: Padding(
-                                  padding: EdgeInsets.only(left: 1),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            data[index].topic,
-                                            style: const TextStyle(color: Colors.black,fontSize: 30),
-                                          ),
-                                        ],
-                                      ),
-
-
-                                      // Padding(
-                                      //   padding: const EdgeInsets.only(left: 20),
-                                      //   child: _controller.value.isInitialized
-                                      //           ? AspectRatio(
-                                      //         aspectRatio: _controller.value.aspectRatio,
-                                      //         child: VideoPlayer(_controller),
-                                      //       )
-                                      //           : Container(),
-                                      //
-                                      // ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left:120,top: 10),
-                                        child: Row(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 1),
+                                    child: Column(
+                                      children: [
+                                        Row(
                                           children: [
-                                            ElevatedButton(
-                                              child: Text('View'),
-                                              onPressed: () {
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ViewOneTutorialScreen(
-                                                              id: data[
-                                                              index]
-                                                                  .id,
-                                                            )));
-                                              },
-                                            ),
-                                            SizedBox(
-                                              width:  5,
-                                            ),
-                                            ElevatedButton(
-                                              onPressed: () async {
-                                                await FirebaseFirestore.instance
-                                                    .collection('tutorials')
-                                                    .doc(data[index].id)
-                                                    .delete();
-                                              },
-                                              child: Text("Delete"),
-                                              style: ButtonStyle(
-                                                textStyle: MaterialStateProperty.all(
-                                                  const TextStyle(fontSize: 12),
-                                                ),
-                                                backgroundColor: MaterialStateProperty.all(
-                                                  Colors.red,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width:  5,
-                                            ),
-                                            ElevatedButton(
-                                              child: Text('Edit'),
-                                              onPressed: () {
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            TutorialUpdateScreen( id:  data[index].id,
-                                                            )));
-                                              },
+                                            Text(
+                                              data[index].topic,
+                                              style: const TextStyle(color: Colors.black,fontSize: 30),
                                             ),
                                           ],
                                         ),
-                                      ),
 
-                                    ],
+
+                                        // Padding(
+                                        //   padding: const EdgeInsets.only(left: 20),
+                                        //   child: _controller.value.isInitialized
+                                        //           ? AspectRatio(
+                                        //         aspectRatio: _controller.value.aspectRatio,
+                                        //         child: VideoPlayer(_controller),
+                                        //       )
+                                        //           : Container(),
+                                        //
+                                        // ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left:120,top: 10),
+                                          child: Row(
+                                            children: [
+                                              ElevatedButton(
+                                                child: Text('View'),
+                                                onPressed: () {
+                                                  Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ViewOneTutorialScreen(
+                                                                id: data[
+                                                                index]
+                                                                    .id,
+                                                              )));
+                                                },
+                                              ),
+                                              SizedBox(
+                                                width:  5,
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () async {
+                                                  await FirebaseFirestore.instance
+                                                      .collection('tutorials')
+                                                      .doc(data[index].id)
+                                                      .delete();
+                                                },
+                                                child: Text("Delete"),
+                                                style: ButtonStyle(
+                                                  textStyle: MaterialStateProperty.all(
+                                                    const TextStyle(fontSize: 12),
+                                                  ),
+                                                  backgroundColor: MaterialStateProperty.all(
+                                                    Colors.red,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width:  5,
+                                              ),
+                                              ElevatedButton(
+                                                child: Text('Edit'),
+                                                onPressed: () {
+                                                  Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              TutorialUpdateScreen( id:  data[index].id,
+                                                              )));
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                );
-              }
-            },
-          ),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
 
+          ),
         ),
       ),
 

@@ -6,7 +6,6 @@ import 'package:kathaappctse/screens/therapy/therapist/tutorialModel.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../Navigation/bottomNavigation.dart';
-import '../../../utils/config.dart';
 
 
 
@@ -69,6 +68,7 @@ class _ViewOneTutorialScreenState extends State<ViewOneTutorialScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
@@ -102,82 +102,84 @@ class _ViewOneTutorialScreenState extends State<ViewOneTutorialScreen> {
       ),
       body: Container(
         decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(Config.app_background), fit: BoxFit.fill),
-           ),
-
+          //   image: DecorationImage(
+          //       image: AssetImage(Config.app_background), fit: BoxFit.fill),
+          // ),
+        ),
         child: loading
             ? Center(child: CircularProgressIndicator())
-            : Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(Config.app_background), fit: BoxFit.fill),
-          ),
-              child: SafeArea(
-                child: SingleChildScrollView(
-                      child: Padding(
+            : SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
 
-                        padding: EdgeInsets.only(top: 20),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                                height:height * 0.3,
-                                width:width * 1,
-                                child: Chewie(controller: chewieController)),
+              padding: EdgeInsets.only(top: 20),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height * 0.3,
+                    width: width * 1,
+                    child: Stack(
+                      children: [
+                        Chewie(controller: chewieController),
+                        Container(
+                          color: Colors.white.withOpacity(0.7),
+                        ),
+                      ],
+                    ),
+                  ),
 
-                            SizedBox(height: 26.0),
-                            Center(
-                              child: Text(
-                                oneTutorial!.topic,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Varela',
-                                  fontSize: 32.0,
-                                  shadows: [
-                                    Shadow(
-                                      blurRadius: 5.0,
-                                      color: Colors.black.withOpacity(0.3),
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                  SizedBox(height: 26.0),
+                  Center(
+                    child: Text(
+                      oneTutorial!.topic,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Varela',
+                        fontSize: 32.0,
+                        shadows: [
+                          Shadow(
+                            blurRadius: 5.0,
+                            color: Colors.black.withOpacity(0.3),
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 16.0),
+                  Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width - 52.0,
+                      child: Text(
+                        oneTutorial!.description,
+                        maxLines: 4,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Varela',
+                          fontSize: 16.0,
+                          color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 5.0,
+                              color: Colors.black.withOpacity(0.3),
+                              offset: Offset(0, 2),
                             ),
-
-                            SizedBox(height: 16.0),
-                            Center(
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width - 52.0,
-                                child: Text(
-                                  oneTutorial!.description,
-                                  maxLines: 4,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'Varela',
-                                    fontSize: 16.0,
-                                    color: Colors.white,
-                                    shadows: [
-                                      Shadow(
-                                        blurRadius: 5.0,
-                                        color: Colors.black.withOpacity(0.3),
-                                        offset: Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            SizedBox(height: 16.0),
-
-
                           ],
                         ),
                       ),
                     ),
+                  ),
 
+                  SizedBox(height: 16.0),
+
+
+                ],
               ),
             ),
+          ),
+
+        ),
       ),
 
     );

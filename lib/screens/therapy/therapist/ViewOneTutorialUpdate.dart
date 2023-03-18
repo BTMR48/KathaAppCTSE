@@ -7,12 +7,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kathaappctse/screens/therapy/therapist/tutorialModel.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../homeScreen.dart';
+import '../../homeScreenUser.dart';
 
 class TutorialUpdateScreen extends StatefulWidget {
   final String? id;
 
-  const TutorialUpdateScreen({Key? key, this.id}) : super(key: key);
+  const TutorialUpdateScreen({Key? key,  this.id}) : super(key: key);
 
   @override
   _TutorialUpdateScreenState createState() => _TutorialUpdateScreenState();
@@ -90,7 +90,6 @@ class _TutorialUpdateScreenState extends State<TutorialUpdateScreen> {
       }
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -184,9 +183,7 @@ class _TutorialUpdateScreenState extends State<TutorialUpdateScreen> {
         .millisecondsSinceEpoch
         .toString();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    Reference ref = FirebaseStorage.instance.ref().child("tutorials").child(
-        "post_$postID");
-
+    Reference ref = FirebaseStorage.instance.ref().child("tutorials").child("post_$postID");
     await ref.putFile(_file!);
     downloadURL = await ref.getDownloadURL();
     await FirebaseFirestore.instance.collection('tutorials').add({

@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../utils/config.dart';
 import '../../login&signup&splashscreen/loginScreen.dart';
 import 'VoiceUpdate.dart';
 import 'addvoice.dart';
@@ -70,153 +71,112 @@ class _AllVoiceClientScreenState extends State<AllVoiceClientScreen> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Voice List'),
-        actions: [
-          IconButton(
+        backgroundColor: Colors.grey[200],
+
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Color(0xFF545D68),
+            ),
             onPressed: () {
-              logout(context);
-            },
-            icon: Icon(Icons.logout),
-          )
-        ],
-      ),
-      body: Scrollbar(
-        isAlwaysShown: true,
-        child: SizedBox(
-          width: width * 1,
-          height: height * 1,
-          child: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection('audio').snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else {
-                List<Voice> data = mapRecords(snapshot.data);
-                return ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (context, index) {
-                    return SizedBox(
-                      height: height * 0.20,
-                      child: Card(
-                        color: Colors.blue.withOpacity(0.4),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: Colors.redAccent,
-                          ),
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            SizedBox(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 1),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            data[index].title,
-                                            style: const TextStyle(color: Colors.black,fontSize: 30),
-                                          ),
-                                        ],
-                                      ),
-
-
-                                      // Padding(
-                                      //   padding: const EdgeInsets.only(left: 20),
-                                      //   child: _controller.value.isInitialized
-                                      //           ? AspectRatio(
-                                      //         aspectRatio: _controller.value.aspectRatio,
-                                      //         child: VideoPlayer(_controller),
-                                      //       )
-                                      //           : Container(),
-                                      //
-                                      // ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left:120,top: 10),
-                                        child: Row(
-                                          children: [
-                                            ElevatedButton(
-                                              child: Text('View'),
-                                              onPressed: () {
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ViewOneVoiceScreen(
-                                                              audioId: data[
-                                                              index]
-                                                                  .id,
-                                                            )));
-                                              },
-                                            ),
-                                            SizedBox(
-                                              width:  5,
-                                            ),
-                                            ElevatedButton(
-                                              onPressed: () async {
-                                                await FirebaseFirestore.instance
-                                                    .collection('audio')
-                                                    .doc(data[index].id)
-                                                    .delete();
-                                              },
-                                              child: Text("Delete"),
-                                              style: ButtonStyle(
-                                                textStyle: MaterialStateProperty.all(
-                                                  const TextStyle(fontSize: 12),
-                                                ),
-                                                backgroundColor: MaterialStateProperty.all(
-                                                  Colors.red,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width:  5,
-                                            ),
-                                            ElevatedButton(
-                                              child: Text('Edit'),
-                                              onPressed: () {
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            UpdateAudioRecorder( audioId:  data[index].id,
-                                                            )));
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
-              }
+              Navigator.of(context).pop();
             },
           ),
-
+          title: Text(
+            'Voices',
+            style: TextStyle(
+              fontFamily: 'Varela',
+              fontSize: 24.0,
+              color: const Color(0xFF545D68),
+            ),
+          ),
+          actions: [
+            // IconButton(
+            //   icon: const Icon(
+            //     Icons.notifications_none,
+            //     color: Color(0xFF545D68),
+            //   ),
+            //   onPressed: () {},
+            // ),
+          ],
         ),
-      ),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(Config.app_background2), fit: BoxFit.fill),
+          ),
+          child: FutureBuilder<List<Voice>>(
+              future: fetchRecords(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<Voice>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.data == null || snapshot.data!.isEmpty) {
+                  return Center(child: Text('No Voice found.'));
+                } else {
+                  return Scrollbar(
+                    isAlwaysShown: true,
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ViewOneVoiceScreen(
+                                      audioId: snapshot.data![index].id,
+                                    ),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            margin: const EdgeInsets.all(16),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    snapshot.data![index].title,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 24,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
 
-      floatingActionButton: FloatingActionButton(
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                }
+              }
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (context) =>
-                      UpdateAudioRecorder()));
-        },
-        child: Icon(Icons.add),
-      ),
-
+      Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) =>
+                  UpdateAudioRecorder()));
+    },
+    child: Icon(Icons.add),
+    ),
     );
   }
 }

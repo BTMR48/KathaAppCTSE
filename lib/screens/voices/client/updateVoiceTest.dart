@@ -10,7 +10,7 @@ import 'package:kathaappctse/screens/voices/client/voicesModel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
-import '../../homeScreen.dart';
+import '../../homeScreenUser.dart';
 
 class UpdateAudioRecorder extends StatefulWidget {
   final String? audioId;
@@ -69,7 +69,35 @@ class _UpdateAudioRecorderState extends State<UpdateAudioRecorder> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Audio Recorder'),
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Color(0xFF545D68),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        title: Text(
+          'Voices',
+          style: TextStyle(
+            fontFamily: 'Varela',
+            fontSize: 24.0,
+            color: const Color(0xFF545D68),
+          ),
+        ),
+        actions: [
+          // IconButton(
+          //   icon: const Icon(
+          //     Icons.notifications_none,
+          //     color: Color(0xFF545D68),
+          //   ),
+          //   onPressed: () {},
+          // ),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
