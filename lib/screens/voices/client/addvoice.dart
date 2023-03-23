@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
@@ -10,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
 import '../../homeScreenUser.dart';
+import '../../login&signup&splashscreen/userModel.dart';
 
 class AudioRecorder extends StatefulWidget {
   @override
@@ -22,12 +24,21 @@ class _AudioRecorderState extends State<AudioRecorder> {
   bool _isPlaying = false;
   FlutterSoundPlayer? _player;
   TextEditingController _titleController = TextEditingController();
-
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
   @override
   void initState() {
     super.initState();
     _player = FlutterSoundPlayer();
     _player!.openAudioSession();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      loggedInUser = UserModel.formMap(value.data());
+      setState(() {});
+    });
   }
 
   Future<void> uploadAudioToFirebaseStorage() async {
@@ -49,6 +60,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
       // Save the audio URL and title to Firestore
       final firestore = FirebaseFirestore.instance;
       await firestore.collection('audio').add({
+        'uid':loggedInUser.uid,
         'url': audioUrl,
         'title': _titleController.text.trim(),
       });

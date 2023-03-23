@@ -8,8 +8,6 @@ class Config {
 
   static const article_background = 'assets/image.jpg';
   static const article_logo = 'assets/logob.png';
-  static const app_au = 'assets/au.png';
-  static const app_ni = 'assets/ni.png';
   //Screen test questions
   static const app_Screentestquestion1 = 'ළමයා දිනකට කොච්චර වචන පවසනවා ද?';
   static const app_Screentestquestion2 =
