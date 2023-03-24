@@ -87,7 +87,7 @@ class _AllVoiceClientScreenState extends State<AllVoiceClientScreen> {
             },
           ),
           title: Text(
-            'Voices',
+            'Audio management',
             style: TextStyle(
               fontFamily: 'Varela',
               fontSize: 24.0,
@@ -152,6 +152,7 @@ class _AllVoiceClientScreenState extends State<AllVoiceClientScreen> {
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 24,
+                                        color: Colors.blueAccent
                                     ),
                                   ),
                                   SizedBox(height: 8),

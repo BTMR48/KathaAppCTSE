@@ -68,7 +68,7 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
           },
         ),
         title: Text(
-          'Voices',
+          'Listen to audio',
           style: TextStyle(
             fontFamily: 'Varela',
             fontSize: 24.0,
@@ -99,12 +99,13 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+
                   Text(
                     oneVoice!.title,
                     style: TextStyle(
                       fontSize: 32.0,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: Colors.blueAccent,
                       shadows: [
                         Shadow(
                           blurRadius: 2.0,
@@ -126,7 +127,7 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
 
 
                   SizedBox(
-                    height: 300,
+                    height: 50,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -156,7 +157,7 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
                         ),
                       ),
                       SizedBox(
-                        width:  5,
+                        width:  10,
                       ),
                       ElevatedButton(
                         child: Text('Edit'),
