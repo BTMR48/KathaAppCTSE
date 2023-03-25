@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../utils/config.dart';
 import '../homeScreenUser.dart';
+import '../homeScreenTherapist.dart';
 import 'RegistrationScreen.dart';
 import 'loginScreenTherapist.dart';
 
