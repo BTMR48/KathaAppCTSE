@@ -236,8 +236,9 @@ class _CreateUserScreenState extends State<CreateUSerScreen> {
                       firstNameField,
                       SizedBox(height: 20),
                       secondNameField,
-                      addressField,
+
                       SizedBox(height: 20),
+                      addressField,
                       SizedBox(height: 20),
                       emailField,
                       SizedBox(height: 20),

@@ -9,17 +9,22 @@ import '../../../Navigation/bottomNavigation.dart';
 import '../../../utils/config.dart';
 
 class ViewOneUser extends StatefulWidget {
-   const ViewOneUser({Key? key, required this.id}) : super(key: key);
-   final String id;
+  const ViewOneUser({Key? key, required this.id}) : super(key: key);
+  final String id;
   //
-   @override
-   _ViewOneUserState createState() => _ViewOneUserState();
+  @override
+  _ViewOneUserState createState() => _ViewOneUserState();
 }
 class _ViewOneUserState extends State<ViewOneUser> {
   UserModel? oneUser;
   bool loading = false;
-  late VideoPlayerController videoPlayerController;
-  late ChewieController chewieController;
+  final firstNameEditingController = new TextEditingController();
+  final secondNameEditingController = new TextEditingController();
+  final emailEditingController = new TextEditingController();
+  final passwordEditingController = new TextEditingController();
+  final confirmPasswordEditingController = new TextEditingController();
+  final addressController = new TextEditingController();
+  final phoneNumberController = new TextEditingController();
 
   @override
   void initState() {
