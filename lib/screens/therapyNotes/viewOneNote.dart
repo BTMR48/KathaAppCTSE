@@ -2,23 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/public/flutter_sound_player.dart';
+import 'package:kathaappctse/screens/therapyNotes/viewAddedNotesAll.dart';
 import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
 import 'package:kathaappctse/screens/voices/client/voicesModel.dart';
 
 import '../../../utils/config.dart';
+import 'noteModel.dart';
+import 'noteUpdateScreen.dart';
 
 
 
-class ViewOneVoiceScreen extends StatefulWidget {
-  String audioId;
-   ViewOneVoiceScreen({Key? key,  required this.audioId}) : super(key: key);
+class ViewOneNoteUpdateScreen extends StatefulWidget {
+  String noteID;
+  ViewOneNoteUpdateScreen({Key? key,  required this.noteID}) : super(key: key);
 
   @override
-  State<ViewOneVoiceScreen> createState() => _ViewOneVoiceScreenState();
+  State<ViewOneNoteUpdateScreen> createState() => _ViewOneNoteUpdateScreenState();
 }
 
-class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
-  Voice? oneVoice;
+class _ViewOneNoteUpdateScreenState extends State<ViewOneNoteUpdateScreen> {
+  Note? oneNote;
   bool loading = false;
   bool _isRecording = false;
   String _audioPath = '';
@@ -34,15 +37,15 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
   }
 
   Future<void> getVoice() async {
-    final id = widget.audioId;
-    final reference = FirebaseFirestore.instance.doc('audio/$id');
+    final id = widget.noteID;
+    final reference = FirebaseFirestore.instance.doc('notes/$id');
     final snapshot = reference.get();
 
     final result = await snapshot.then(
-            (snap) => snap.data() == null ? null : Voice.fromJson(snap.data()!));
+            (snap) => snap.data() == null ? null : Note.fromJson(snap.data()!));
     print('result is ====> $result');
     setState(() {
-      oneVoice = result;
+      oneNote = result;
       loading = false;
     });
   }
@@ -67,7 +70,7 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
           },
         ),
         title: Text(
-          'Listen to audio',
+          'Notes',
           style: TextStyle(
             fontFamily: 'Varela',
             fontSize: 24.0,
@@ -86,9 +89,9 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
       ),
       body: Container(
         decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(Config.app_background2), fit: BoxFit.fill),
-          ),
+          image: DecorationImage(
+              image: AssetImage(Config.app_background2), fit: BoxFit.fill),
+        ),
 
         child: loading ?
         CircularProgressIndicator()
@@ -98,13 +101,12 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-
                   Text(
-                    oneVoice!.title,
+                    oneNote!.title,
                     style: TextStyle(
                       fontSize: 32.0,
                       fontWeight: FontWeight.w600,
-                      color: Colors.blueAccent,
+                      color: Colors.white,
                       shadows: [
                         Shadow(
                           blurRadius: 2.0,
@@ -123,11 +125,67 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
                     color: Colors.greenAccent,
                     onPressed: _isPlaying ? stopPlayback : startPlayback,
                   ),
-
-
-                  SizedBox(
+                  Text(
+                    oneNote!.noteName,
+                    style: TextStyle(
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 2.0,
+                          color: Colors.grey,
+                          offset: Offset(1.0, 1.0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
                     height: 50,
                   ),
+
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          await FirebaseFirestore.instance
+                              .collection('notes')
+                              .doc(widget.noteID)
+                              .delete().whenComplete(() => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      AllNotesAddedScreen(
+                                      )
+                              )
+                          )
+                          );
+                        },
+                        child: Text("Delete"),
+                        style: ButtonStyle(
+                          textStyle: MaterialStateProperty.all(
+                            const TextStyle(fontSize: 12),
+                          ),
+                          backgroundColor: MaterialStateProperty.all(
+                            Colors.red,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width:  5,
+                      ),
+                      ElevatedButton(
+                        child: Text('Edit'),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      NoteUpdateScreen( id : widget.noteID,)));
+                        },
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -138,8 +196,8 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
   }
   Future<void> startPlayback() async {
     try {
-      if (oneVoice!.url.isNotEmpty) {
-        await _player!.startPlayer(fromURI: _audioPath.isNotEmpty ? _audioPath :oneVoice!.url);
+      if (oneNote!.voice.isNotEmpty) {
+        await _player!.startPlayer(fromURI: _audioPath.isNotEmpty ? _audioPath :oneNote!.voice);
         setState(() {
           _isPlaying = true;
         });

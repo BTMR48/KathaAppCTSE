@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../utils/config.dart';
-import '../HomeScreenTherapist.dart';
+import '../homeScreenTherapist.dart';
 import '../homeScreenUser.dart';
 import 'RegistrationScreen.dart';
 

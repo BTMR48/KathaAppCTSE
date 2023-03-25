@@ -77,11 +77,14 @@ class _AudioRecorderState extends State<AudioRecorder> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextFormField(
-            controller: _titleController,
-            decoration: InputDecoration(
-              hintText: 'Title',
-              border: OutlineInputBorder(),
+          Padding(
+            padding: EdgeInsets.only(right: 16.0),
+            child: TextFormField(
+              controller: _titleController,
+              decoration: InputDecoration(
+                hintText: 'Sub Title',
+                border: OutlineInputBorder(),
+              ),
             ),
           ),
           SizedBox(height: 100,),
