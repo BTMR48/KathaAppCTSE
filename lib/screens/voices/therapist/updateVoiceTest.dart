@@ -82,7 +82,7 @@ class _UpdateAudioRecorderState extends State<UpdateAudioRecorder> {
           },
         ),
         title: Text(
-          'Voices',
+          'Add Audio',
           style: TextStyle(
             fontFamily: 'Varela',
             fontSize: 24.0,
@@ -102,11 +102,14 @@ class _UpdateAudioRecorderState extends State<UpdateAudioRecorder> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextFormField(
-            controller: _titleController,
-            decoration: InputDecoration(
-              hintText: 'Title',
-              border: OutlineInputBorder(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
+            child: TextFormField(
+              controller: _titleController,
+              decoration: InputDecoration(
+                hintText: 'Title',
+                border: OutlineInputBorder(),
+              ),
             ),
           ),
           SizedBox(

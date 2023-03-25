@@ -1,23 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kathaappctse/screens/therapy/client/viewAllTutorialClient.dart';
+import 'package:kathaappctse/screens/therapy/therapist/addtutorials.dart';
+import 'package:kathaappctse/screens/therapy/therapist/viewAllTutorials.dart';
+import 'package:kathaappctse/screens/voices/therapist/viewAllVoicesClients.dart';
 import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
-import 'package:kathaappctse/screens/userManagement/viewUser.dart';
 
 import 'therapyNotes/ViewAllNote.dart';
 import 'therapyNotes/addNote.dart';
 import 'therapyNotes/viewAddedNotesAll.dart';
 import '../../../utils/config.dart';
 
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreenTherapist extends StatefulWidget {
+  const HomeScreenTherapist({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreenTherapist> createState() => _HomeScreenTherapistState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenTherapistState extends State<HomeScreenTherapist> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -26,20 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           actions: [
             IconButton(
-              icon: Icon(Icons.person),
-              onPressed: () {
-                // Perform logout action
-              },
-            ),
-            IconButton(
               icon: Icon(Icons.logout),
-              onPressed: () {
-                // Perform logout action
-              },
-
-            ),
-            IconButton(
-              icon: Icon(Icons.help),
               onPressed: () {
                 // Perform logout action
               },
@@ -51,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
             image: DecorationImage(
                 image: AssetImage(Config.app_background2), fit: BoxFit.fill),
           ),
-
           child: SafeArea(
             child: Column(
               children: [
@@ -65,22 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   child: Text(
-
-                  "Voices",
-                ),),
-                ElevatedButton(onPressed:(){
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ViewAllTutorialClientClass() ) ) ;},
-                  child: Text(
-                      "Therapy Page client"
-                  ),),
-                ElevatedButton(onPressed:(){
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ViewAllUsersClass() ) ) ;},
-                  child: Text(
-                      "User Settings"
-                  ),),
-                    'ආයුබෝවන්!',
+                    // 'චිකිත්සක උපකරණ පුවරුව',
+                    'Therapist Dashboard',
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
@@ -88,9 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                ),
-                const SizedBox(
-                  height: 100,
                 ),
                 Expanded(
                   child: GridView.count(
@@ -102,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AllVoiceClientScreen(),
+                            builder: (context) => AllVoiceTherapistScreen(),
                           ));
                         },
                         style: ElevatedButton.styleFrom(
@@ -118,8 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icon(Icons.record_voice_over, size: 60.0, color: Colors.white),
                             SizedBox(height: 16.0),
                             Text(
-                              // 'Voices',
-                              'හඬ',
+                              'Voices',
                               style: TextStyle(
                                 fontSize: 24.0,
                                 fontWeight: FontWeight.bold,
@@ -132,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ViewAllTutorialClientClass(),
+                            builder: (context) => AllTutorialAdminScreen(),
                           ));
                         },
                         style: ElevatedButton.styleFrom(
@@ -148,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icon(Icons.healing, size: 60.0, color: Colors.white),
                             SizedBox(height: 16.0),
                             Text(
-                              'ක්‍රීඩා',
+                              'Therapy',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 24.0,
@@ -159,11 +128,69 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AllVoiceTherapyNoteScreen(),
+                          ));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.pink.shade400,
+                          padding: EdgeInsets.all(16.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.notes, size: 60.0, color: Colors.white),
+                            SizedBox(height: 16.0),
+                            Text(
+                              'Therapy notes',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AllNotesAddedScreen(),
+                          ));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blue.shade400,
+                          padding: EdgeInsets.all(16.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.note_add, size: 60.0, color: Colors.white),
+                            SizedBox(height: 16.0),
+                            Text(
+                              'Notes note page',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-
               ],
             ),
           ),
@@ -171,5 +198,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
 }

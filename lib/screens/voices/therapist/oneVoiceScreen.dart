@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/public/flutter_sound_player.dart';
+import 'package:kathaappctse/screens/voices/therapist/updateVoiceTest.dart';
 import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
 import 'package:kathaappctse/screens/voices/client/voicesModel.dart';
 
@@ -128,6 +129,47 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
                   SizedBox(
                     height: 50,
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          await FirebaseFirestore.instance
+                              .collection('audio')
+                              .doc(widget.audioId)
+                              .delete().whenComplete(() => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      AllVoiceClientScreen(
+                                      )
+                              )
+                          )
+                          );
+                        },
+                        child: Text("Delete"),
+                        style: ButtonStyle(
+                          textStyle: MaterialStateProperty.all(
+                            const TextStyle(fontSize: 12),
+                          ),
+                          backgroundColor: MaterialStateProperty.all(
+                            Colors.red,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width:  10,
+                      ),
+                      ElevatedButton(
+                        child: Text('Edit'),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      UpdateAudioRecorder( audioId : widget.audioId,)));
+                        },
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
