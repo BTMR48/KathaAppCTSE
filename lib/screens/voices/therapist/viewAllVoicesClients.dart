@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kathaappctse/screens/voices/therapist/updateVoiceTest.dart';
 import 'package:kathaappctse/screens/voices/client/voicesModel.dart';
 import 'package:video_player/video_player.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,17 +8,19 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/config.dart';
 import '../../login&signup&splashscreen/loginScreen.dart';
+import 'VoiceUpdate.dart';
+import 'addvoice.dart';
 import 'oneVoiceScreen.dart';
 
 
-class AllVoiceClientScreen extends StatefulWidget {
-  const AllVoiceClientScreen({Key? key}) : super(key: key);
+class AllVoiceTherapistScreen extends StatefulWidget {
+  const AllVoiceTherapistScreen({Key? key}) : super(key: key);
 
   @override
-  State<AllVoiceClientScreen> createState() => _AllVoiceClientScreenState();
+  State<AllVoiceTherapistScreen> createState() => _AllVoiceTherapistScreenState();
 }
 
-class _AllVoiceClientScreenState extends State<AllVoiceClientScreen> {
+class _AllVoiceTherapistScreenState extends State<AllVoiceTherapistScreen> {
   List<Voice> tutorial = [];
 
   void _deleteTask(int index) {
@@ -37,9 +40,7 @@ class _AllVoiceClientScreenState extends State<AllVoiceClientScreen> {
     var _list = records?.docs
         .map(
           (voice) => Voice(
-
         id: voice.id,
-            uid: voice['uid'],
             title: voice['title'],
         url: voice["url"],
       ),
@@ -168,6 +169,15 @@ class _AllVoiceClientScreenState extends State<AllVoiceClientScreen> {
               }
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+        onPressed: () {
+      Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) =>
+                  UpdateAudioRecorder()));
+    },
+    child: Icon(Icons.add),
+    ),
     );
   }
 }
