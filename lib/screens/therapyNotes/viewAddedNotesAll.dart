@@ -8,41 +8,44 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/config.dart';
 import '../login&signup&splashscreen/loginScreen.dart';
-import 'addNote.dart';
+import 'noteModel.dart';
+import 'viewOneNote.dart';
 
 
 
-class AllVoiceTherapyNoteScreen extends StatefulWidget {
-  const AllVoiceTherapyNoteScreen({Key? key}) : super(key: key);
+class AllNotesAddedScreen extends StatefulWidget {
+  const AllNotesAddedScreen({Key? key}) : super(key: key);
 
   @override
-  State<AllVoiceTherapyNoteScreen> createState() => _AllVoiceTherapyNoteScreenState();
+  State<AllNotesAddedScreen> createState() => _AllNotesAddedScreenState();
 }
 
-class _AllVoiceTherapyNoteScreenState extends State<AllVoiceTherapyNoteScreen> {
-  List<Voice> tutorial = [];
+class _AllNotesAddedScreenState extends State<AllNotesAddedScreen> {
+  List<Note> notes = [];
 
   void _deleteTask(int index) {
     setState(() {
-      tutorial.removeAt(index);
+      notes.removeAt(index);
     });
   }
 
   // fetch data from collection
   @override
-  Future<List<Voice>> fetchRecords() async {
-    var records = await FirebaseFirestore.instance.collection('audio').get();
+  Future<List<Note>> fetchRecords() async {
+    var records = await FirebaseFirestore.instance.collection('notes').get();
     return mapRecords(records);
   }
 
-  List<Voice> mapRecords(QuerySnapshot<Object?>? records) {
+  List<Note> mapRecords(QuerySnapshot<Object?> records) {
     var _list = records?.docs
         .map(
-          (voice) => Voice(
-        id: voice.id,
-            // uid: voice['uid'],
-        title: voice['title'],
-        url: voice["url"],
+          (notes) => Note(
+
+        id: notes.id,
+        uid: notes['uid'],
+        title: notes['title'],
+        voice: notes["voice"],
+            noteName: notes["noteName"],
       ),
     )
         .toList();
@@ -87,7 +90,7 @@ class _AllVoiceTherapyNoteScreenState extends State<AllVoiceTherapyNoteScreen> {
           },
         ),
         title: Text(
-          'Voices to add notes',
+          'Voices',
           style: TextStyle(
             fontFamily: 'Varela',
             fontSize: 24.0,
@@ -109,16 +112,16 @@ class _AllVoiceTherapyNoteScreenState extends State<AllVoiceTherapyNoteScreen> {
           image: DecorationImage(
               image: AssetImage(Config.app_background2), fit: BoxFit.fill),
         ),
-        child: FutureBuilder<List<Voice>>(
+        child: FutureBuilder<List<Note>>(
             future: fetchRecords(),
             builder: (BuildContext context,
-                AsyncSnapshot<List<Voice>> snapshot) {
+                AsyncSnapshot<List<Note>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else if (snapshot.data == null || snapshot.data!.isEmpty) {
-                return Center(child: Text('No Voice found.'));
+                return Center(child: Text('No Note found.'));
               } else {
                 return Scrollbar(
                   isAlwaysShown: true,
@@ -130,8 +133,8 @@ class _AllVoiceTherapyNoteScreenState extends State<AllVoiceTherapyNoteScreen> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) =>
-                                  ViewNoteTherapyScreen(
-                                    audioId: snapshot.data![index].id,
+                                  ViewOneNoteUpdateScreen(
+                                    noteID: snapshot.data![index].id,
                                   ),
                             ),
                           );
@@ -168,6 +171,8 @@ class _AllVoiceTherapyNoteScreenState extends State<AllVoiceTherapyNoteScreen> {
             }
         ),
       ),
+
+
     );
   }
 }

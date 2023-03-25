@@ -53,53 +53,53 @@ class _ViewNoteTherapyScreenState extends State<ViewNoteTherapyScreen> {
       loading = false;
     });
   }
-  TextEditingController _noteController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    // print(widget.id);
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Color(0xFF545D68),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        title: Text(
-          'Voices',
-          style: TextStyle(
-            fontFamily: 'Varela',
-            fontSize: 24.0,
-            color: const Color(0xFF545D68),
-          ),
-        ),
-        actions: [
-          // IconButton(
-          //   icon: const Icon(
-          //     Icons.notifications_none,
-          //     color: Color(0xFF545D68),
-          //   ),
-          //   onPressed: () {},
-          // ),
-        ],
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(Config.app_background2), fit: BoxFit.fill),
-        ),
 
-        child: loading ?
+TextEditingController _noteController = TextEditingController();
+
+@override
+Widget build(BuildContext context) {
+  double height = MediaQuery.of(context).size.height;
+  double width = MediaQuery.of(context).size.width;
+  return Scaffold(
+    appBar: AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0.0,
+      centerTitle: true,
+      leading: IconButton(
+        icon: const Icon(
+          Icons.arrow_back,
+          color: Color(0xFF545D68),
+        ),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+      title: Text(
+        'Voices',
+        style: TextStyle(
+          fontFamily: 'Varela',
+          fontSize: 24.0,
+          color: const Color(0xFF545D68),
+        ),
+      ),
+      actions: [
+        // IconButton(
+        //   icon: const Icon(
+        //     Icons.notifications_none,
+        //     color: Color(0xFF545D68),
+        //   ),
+        //   onPressed: () {},
+        // ),
+      ],
+    ),
+    body: Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(Config.app_background2), fit: BoxFit.fill),
+      ),
+      child: loading ?
         CircularProgressIndicator()
-            :
+          :
         SafeArea(
           child: Center(
             child: SingleChildScrollView(
@@ -110,7 +110,7 @@ class _ViewNoteTherapyScreenState extends State<ViewNoteTherapyScreen> {
                     style: TextStyle(
                       fontSize: 32.0,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: Colors.black,
                       shadows: [
                         Shadow(
                           blurRadius: 2.0,
@@ -120,40 +120,47 @@ class _ViewNoteTherapyScreenState extends State<ViewNoteTherapyScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 50,
-                  ),
+                  const SizedBox(height: 50,),
                   IconButton(
                     icon: Icon(_isPlaying ? Icons.stop : Icons.play_arrow),
-                    iconSize: 48,
-                    color: Colors.greenAccent,
+                    iconSize: 72,
+                    color: Colors.green,
                     onPressed: _isPlaying ? stopPlayback : startPlayback,
                   ),
-
-                  TextFormField(
-                    controller: _noteController,
-                    decoration: InputDecoration(
-                      hintText: 'Title',
-                      border: OutlineInputBorder(),
+                  SizedBox(height: 50,),
+                  Container(
+                    width: width * 0.7,
+                    child: TextFormField(
+                      controller: _noteController,
+                      decoration: InputDecoration(
+                        hintText: 'Type notes here...',
+                        border: OutlineInputBorder(),
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    height: 300,
-                  ),
+                  SizedBox(height: 50,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                        child: Text('Save'),
-                        onPressed:(){
+                      ElevatedButton.icon(
+                        icon: Icon(Icons.save),
+                        label: Text('Save Notes'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.greenAccent,
+                          onPrimary: Colors.black,
+                          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        onPressed: () {
                           FirebaseFirestore.instance.collection("notes").doc().set({
-                            "uid":oneVoice!.uid,
                             'title': oneVoice!.title,
-                            'voice' :  oneVoice!.url,
-                            "noteName": _noteController.text,
-
-                          }).whenComplete(() =>  Navigator.pushReplacement(
-                              context, MaterialPageRoute(builder: (context) => AllVoiceTherapyNoteScreen()))
+                            'voice': oneVoice!.url,
+                            'noteName': _noteController.text,
+                          }).whenComplete(() => Navigator.pushReplacement(
+                                context, 
+                                MaterialPageRoute(builder: (context) => AllVoiceTherapyNoteScreen()))
                           );
                         },
                       ),
@@ -166,7 +173,6 @@ class _ViewNoteTherapyScreenState extends State<ViewNoteTherapyScreen> {
         ),
       ),
     );
-
   }
   Future<void> startPlayback() async {
     try {
