@@ -3,13 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/public/flutter_sound_player.dart';
 import 'package:kathaappctse/screens/therapyNotes/viewAddedNotesAll.dart';
-
-import 'package:kathaappctse/screens/voices/client/updateVoiceTest.dart';
 import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
 import 'package:kathaappctse/screens/voices/client/voicesModel.dart';
 
 import '../../../utils/config.dart';
-import '../voices/client/VoiceUpdate.dart';
 import 'noteModel.dart';
 import 'noteUpdateScreen.dart';
 

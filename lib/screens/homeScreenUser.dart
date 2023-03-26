@@ -4,6 +4,7 @@ import 'package:kathaappctse/screens/help.dart';
 import 'package:kathaappctse/screens/login&signup&splashscreen/loginScreen.dart';
 import 'package:kathaappctse/screens/therapy/client/viewAllTutorialClient.dart';
 import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
+import 'package:kathaappctse/screens/userManagement/viewUser.dart';
 
 import 'therapyNotes/ViewAllNote.dart';
 import 'therapyNotes/addNote.dart';
@@ -58,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
             image: DecorationImage(
                 image: AssetImage(Config.app_background2), fit: BoxFit.fill),
           ),
+
 
           child: SafeArea(
             child: Column(
@@ -155,6 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
+
               ],
             ),
           ),
