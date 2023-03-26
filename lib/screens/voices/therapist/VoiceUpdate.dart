@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
 import 'package:kathaappctse/screens/voices/client/voicesModel.dart';
 import 'package:video_player/video_player.dart';
 
@@ -164,7 +165,7 @@ class _VoiceUpdateScreenState extends State<VoiceUpdateScreen> {
     } else if (_isAdding) {
       await add();
     }
-    Navigator.pop(context);
+
   }
 
   Future<void> add() async {
@@ -181,7 +182,8 @@ class _VoiceUpdateScreenState extends State<VoiceUpdateScreen> {
     await FirebaseFirestore.instance.collection('audio').add({
       'title': _voiceTitleController.text,
       'url': downloadURL,
-    });
+    }).whenComplete(() =>  Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => AllVoiceClientScreen())));
   }
 
   Future<void> update() async {
@@ -206,6 +208,7 @@ class _VoiceUpdateScreenState extends State<VoiceUpdateScreen> {
         .update({
       'title': _voiceTitleController.text,
       'url': downloadURL ?? _voiceUrlController.text,
-    });
+    }).whenComplete(() =>  Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => AllVoiceClientScreen())));
   }
 }

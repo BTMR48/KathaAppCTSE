@@ -53,10 +53,7 @@ class _AddTutorialsState extends State<AddTutorials> {
   //uploading the image , then getting the download url and then
   //adding that download url to our cloud fire store
   Future uploadVideo() async {
-    final postID = DateTime
-        .now()
-        .millisecondsSinceEpoch
-        .toString();
+    final postID = DateTime.now().millisecondsSinceEpoch.toString();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     Reference ref = FirebaseStorage.instance.ref().child("tutorials").child(
         "post_$postID");

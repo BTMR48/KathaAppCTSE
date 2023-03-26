@@ -44,7 +44,7 @@ dependencies:
   record: ^4.4.4
   flutter_sound: ^8.0.1
   permission_handler: ^8.2.2
-  path_provider: ^2.0.13
+
   image_picker: ^0.8.4+4
   video_player: ^2.6.0
   chewie: ^1.4.0
@@ -80,14 +80,10 @@ flutter:
   assets:
     - assets/image.jpg
     - assets/image1.jpg
-    - assets/image2.jpg
     - assets/image3.jpg
     - assets/background1.jpg
-    - assets/au.png
-    - assets/ni.png
     - assets/background2.jpg
     - assets/gif1.gif
-    - assets/gif2.gif
     - assets/logob.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

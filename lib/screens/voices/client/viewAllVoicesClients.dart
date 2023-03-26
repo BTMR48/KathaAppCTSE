@@ -37,7 +37,9 @@ class _AllVoiceClientScreenState extends State<AllVoiceClientScreen> {
     var _list = records?.docs
         .map(
           (voice) => Voice(
+
         id: voice.id,
+            uid: voice['uid'],
             title: voice['title'],
         url: voice["url"],
       ),
