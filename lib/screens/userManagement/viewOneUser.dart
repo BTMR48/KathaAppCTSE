@@ -1,40 +1,174 @@
-import 'package:chewie/chewie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:video_player/video_player.dart';
 import 'package:kathaappctse/screens/login&signup&splashscreen/userModel.dart';
 
-import '../../../Navigation/bottomNavigation.dart';
-import '../../../utils/config.dart';
-
 class ViewOneUser extends StatefulWidget {
-  const ViewOneUser({Key? key, required this.id}) : super(key: key);
   final String id;
-  //
+  const ViewOneUser({Key? key, required this.id}) : super(key: key);
+
   @override
-  _ViewOneUserState createState() => _ViewOneUserState();
+  State<ViewOneUser> createState() => _ViewOneUserState();
 }
+
 class _ViewOneUserState extends State<ViewOneUser> {
-  UserModel? oneUser;
-  bool loading = false;
-  final firstNameEditingController = new TextEditingController();
-  final secondNameEditingController = new TextEditingController();
-  final emailEditingController = new TextEditingController();
-  final passwordEditingController = new TextEditingController();
-  final confirmPasswordEditingController = new TextEditingController();
-  final addressController = new TextEditingController();
-  final phoneNumberController = new TextEditingController();
+  late Future<UserModel> futureUser;
 
   @override
   void initState() {
     super.initState();
-    loading = true;
-    // getArticle();
+    futureUser = fetchUser();
   }
+
+  Future<UserModel> fetchUser() async {
+    var record =
+    await FirebaseFirestore.instance.collection('users').doc(widget.id).get();
+    return UserModel(
+      uid: record.id,
+      email: record['email'],
+      firstName: record['firstName'],
+      secondName: record['secondName'],
+      address: record['address'],
+      phoneNumber: record['phoneNumber'],
+    );
+  }
+
+  void deleteUser(String uid) {
+    FirebaseFirestore.instance.collection('users').doc(uid).delete();
+    Navigator.pop(context);
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }}
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('User Detail'),
+      ),
+      body: Center(
+        child: FutureBuilder<UserModel>(
+          future: futureUser,
+          builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return Padding(
+                padding: const EdgeInsets.all(16),
+                child: Card(
+                  elevation: 5,
+                  color: Colors.orange[100],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          'UID: ${snapshot.data!.uid}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          'Email: ${snapshot.data!.email}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          'First Name: ${snapshot.data!.firstName}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          'Second Name: ${snapshot.data!.secondName}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          'Address: ${snapshot.data!.address}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          'Phone Number: ${snapshot.data!.phoneNumber}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                                deleteUser(
+                                  snapshot.data!.uid.toString(),
+                                );
+                            },
+                            child: Text('Delete'),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.red,
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ViewOneUser(
+                                    id: widget.id,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Text('Edit'),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.blue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
