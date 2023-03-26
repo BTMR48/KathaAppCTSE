@@ -12,6 +12,9 @@ Main functions of the App
 
           Student Name	        Student ID
 Leader:   Wijesooriya W.M.R.K	  IT20190002
+
 Member 2: Doloswala T.D.M.A	    IT20668686
+
 Member 3: Kumarasinghe K.A.M.T	IT20088514
+
 Member 4: Arachchi O.B.K	      IT20245238
