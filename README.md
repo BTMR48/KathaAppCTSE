@@ -10,11 +10,11 @@ Main functions of the App
 4.	Offering different therapy activities within the app that children can do to improve themselves.
 5.	Enabling speech pathologists to manage users.
 
-          Student Name	        Student ID
-Leader:   Wijesooriya W.M.R.K	  IT20190002
+              Student Name	    Student ID
+Leader:   Wijesooriya W.M.R.K	    IT20190002
 
 Member 2: Doloswala T.D.M.A	    IT20668686
 
-Member 3: Kumarasinghe K.A.M.T	IT20088514
+Member 3: Kumarasinghe K.A.M.T    IT20088514
 
-Member 4: Arachchi O.B.K	      IT20245238
+Member 4: Arachchi O.B.K	    IT20245238
