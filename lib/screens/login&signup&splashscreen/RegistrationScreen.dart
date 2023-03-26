@@ -4,10 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kathaappctse/screens/login&signup&splashscreen/userModel.dart';
-
 import '../../utils/config.dart';
 import '../homeScreenUser.dart';
-
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);

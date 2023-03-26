@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kathaappctse/screens/login&signup&splashscreen/userModel.dart';
-import 'package:kathaappctse/screens/userManagement/userdata.dart';
-
 import '../../utils/config.dart';
 import '../homeScreenUser.dart';
 
@@ -163,7 +161,6 @@ class _CreateUserScreenState extends State<CreateUSerScreen> {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ));
 
-
     final createButton = Material(
         elevation: 5,
         borderRadius: BorderRadius.circular(30),
@@ -183,7 +180,6 @@ class _CreateUserScreenState extends State<CreateUSerScreen> {
         ),
     );
     return Scaffold(
-
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
@@ -269,17 +265,14 @@ class _CreateUserScreenState extends State<CreateUSerScreen> {
       });
     }
   }
-
   postDetailsToFirestore() async {
     // calling our fireStore
     //calling our user model
     // sending these values
-
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
 
     UserModel userModel = UserModel();
-
     //writing all the values
     userModel.email = user!.email;
     userModel.uid = user.uid;

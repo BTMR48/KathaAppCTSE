@@ -50,17 +50,9 @@ class _ViewAllUsersClassState
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    double width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: Colors.grey[200],
-
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0.0,
@@ -84,7 +76,15 @@ class _ViewAllUsersClassState
           ),
           actions: [],
         ),
-        body: FutureBuilder<List<UserModel>>(
+        body: Stack(
+          children: [
+            Image.asset(
+              'assets/background1.jpg',
+              fit: BoxFit.cover,
+              height: height,
+              width: width,
+        ),
+        FutureBuilder<List<UserModel>>(
             future: fetchUsers(),
             builder: (BuildContext context,
                 AsyncSnapshot<List<UserModel>> snapshot) {
@@ -171,7 +171,7 @@ class _ViewAllUsersClassState
               }
             }
         )
-    );
+  ]));
   }
 }
 
