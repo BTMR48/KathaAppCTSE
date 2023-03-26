@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kathaappctse/screens/homeScreenUser.dart';
 import 'package:kathaappctse/screens/login&signup&splashscreen/splash_screen.dart';
-import 'package:kathaappctse/screens/voices/client/addvoice.dart';
+import 'package:kathaappctse/screens/voices/therapist/addvoice.dart';
 
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
