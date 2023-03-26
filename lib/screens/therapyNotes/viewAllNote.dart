@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:kathaappctse/screens/voices/client/updateVoiceTest.dart';
+
 import 'package:kathaappctse/screens/voices/client/voicesModel.dart';
 import 'package:video_player/video_player.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/config.dart';
+import '../homeScreenTherapist.dart';
+import '../homeScreenUser.dart';
 import '../login&signup&splashscreen/loginScreen.dart';
 import 'addNote.dart';
 
@@ -74,7 +76,7 @@ class _AllVoiceTherapyNoteScreenState extends State<AllVoiceTherapyNoteScreen> {
       backgroundColor: Colors.grey[200],
 
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.pink,
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(
@@ -87,21 +89,25 @@ class _AllVoiceTherapyNoteScreenState extends State<AllVoiceTherapyNoteScreen> {
           },
         ),
         title: Text(
-          'Voices to add notes',
+          'Note Management',
           style: TextStyle(
             fontFamily: 'Varela',
             fontSize: 24.0,
             color: const Color(0xFF545D68),
           ),
         ),
-        actions: [
-          // IconButton(
-          //   icon: const Icon(
-          //     Icons.notifications_none,
-          //     color: Color(0xFF545D68),
-          //   ),
-          //   onPressed: () {},
-          // ),
+
+          actions: [
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => HomeScreenTherapist(),
+                ));
+              },
+            ),
+
+
         ],
       ),
       body: Container(

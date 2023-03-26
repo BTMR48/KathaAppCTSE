@@ -7,13 +7,13 @@ class Note {
   Note({
 
     required this.id,
-    required this.uid,
+    // required this.uid,
     required this.title,
     required this.voice,
     required this.noteName
 
   });
-  String uid;
+  // String uid;
   String id;
   String title;
   String voice;
@@ -22,7 +22,7 @@ class Note {
 
   factory Note.fromJson(Map<String, dynamic> json) => Note(
 
-    uid: json["uid"] ?? "",
+    // uid: json["uid"] ?? "",
       id: json["id"] ?? "",
       title: json["title"] ?? "",
     voice: json["voice"]?? "",
@@ -31,7 +31,7 @@ class Note {
   );
 
   Map<String, dynamic> toJson() => {
-    "uid" :uid,
+    // "uid" :uid,
     "id": id,
     "title": title,
     "voice": voice,

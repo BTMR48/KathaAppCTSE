@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kathaappctse/screens/homeScreenUser.dart';
+import 'package:kathaappctse/screens/login&signup&splashscreen/loginScreen.dart';
 import 'package:kathaappctse/screens/therapy/client/viewAllTutorialClient.dart';
 import 'package:kathaappctse/screens/therapy/therapist/addtutorials.dart';
 import 'package:kathaappctse/screens/therapy/therapist/viewAllTutorials.dart';
-import 'package:kathaappctse/screens/voices/client/addvoice.dart';
 import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
 
 import 'therapyNotes/ViewAllNote.dart';
@@ -24,6 +25,20 @@ class _HomeScreenTherapistState extends State<HomeScreenTherapist> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
+        appBar: AppBar(
+          actions: [
+
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                ));
+              },
+            ),
+
+          ],
+        ),
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -107,7 +122,7 @@ class _HomeScreenTherapistState extends State<HomeScreenTherapist> {
                             Icon(Icons.healing, size: 60.0, color: Colors.white),
                             SizedBox(height: 16.0),
                             Text(
-                              'Therapy Page',
+                              'Therapy',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 24.0,
@@ -137,7 +152,7 @@ class _HomeScreenTherapistState extends State<HomeScreenTherapist> {
                             Icon(Icons.notes, size: 60.0, color: Colors.white),
                             SizedBox(height: 16.0),
                             Text(
-                              'Therapy note page',
+                              'Therapy notes',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 24.0,
@@ -167,7 +182,7 @@ class _HomeScreenTherapistState extends State<HomeScreenTherapist> {
                             Icon(Icons.note_add, size: 60.0, color: Colors.white),
                             SizedBox(height: 16.0),
                             Text(
-                              'Notes note page',
+                              'Notes list page',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 24.0,
