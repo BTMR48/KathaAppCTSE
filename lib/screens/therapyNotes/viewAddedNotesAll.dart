@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:kathaappctse/screens/voices/client/voicesModel.dart';
 import 'package:video_player/video_player.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/config.dart';
+import '../homeScreenTherapist.dart';
+import '../homeScreenUser.dart';
 import '../login&signup&splashscreen/loginScreen.dart';
 import 'noteModel.dart';
 import 'viewOneNote.dart';
@@ -41,7 +44,7 @@ class _AllNotesAddedScreenState extends State<AllNotesAddedScreen> {
           (notes) => Note(
 
         id: notes.id,
-        uid: notes['uid'],
+        // uid: notes['uid'],
         title: notes['title'],
         voice: notes["voice"],
             noteName: notes["noteName"],
@@ -76,7 +79,7 @@ class _AllNotesAddedScreenState extends State<AllNotesAddedScreen> {
       backgroundColor: Colors.grey[200],
 
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.pink,
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(
@@ -97,15 +100,20 @@ class _AllNotesAddedScreenState extends State<AllNotesAddedScreen> {
           ),
         ),
         actions: [
-          // IconButton(
-          //   icon: const Icon(
-          //     Icons.notifications_none,
-          //     color: Color(0xFF545D68),
-          //   ),
-          //   onPressed: () {},
-          // ),
-        ],
-      ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => HomeScreenTherapist(),
+                ));
+              },
+            ),
+
+
+          ],
+        ),
+
+
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

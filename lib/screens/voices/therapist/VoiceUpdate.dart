@@ -5,10 +5,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kathaappctse/screens/voices/client/voicesModel.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 
-
-
+import '../../homeScreenTherapist.dart';
+import '../../homeScreenUser.dart';
 class VoiceUpdateScreen extends StatefulWidget {
   final String? id;
 
@@ -44,7 +45,6 @@ class _VoiceUpdateScreenState extends State<VoiceUpdateScreen> {
     _videoPlayerController.dispose();
     super.dispose();
   }
-
   // initialization code
   File? _file;
   final imagePicker = ImagePicker();
@@ -96,6 +96,19 @@ class _VoiceUpdateScreenState extends State<VoiceUpdateScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_isAdding ? 'Add Voice' : 'Edit Voice'),
+        backgroundColor: Colors.pink,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => HomeScreenTherapist(),
+              ));
+            },
+          ),
+
+        ],
+
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -167,22 +180,29 @@ class _VoiceUpdateScreenState extends State<VoiceUpdateScreen> {
     Navigator.pop(context);
   }
 
-  Future<void> add() async {
-    final postID = DateTime
-        .now()
-        .millisecondsSinceEpoch
-        .toString();
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    Reference ref = FirebaseStorage.instance.ref().child("audio").child(
-        "post_$postID");
 
+  Future<void> add() async {
+    final postID = DateTime.now().millisecondsSinceEpoch.toString();
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    Reference ref = FirebaseStorage.instance.ref().child("audio").child("post_$postID");
+
+    // Uploading file to Firebase Storage
     await ref.putFile(_file!);
-    downloadURL = await ref.getDownloadURL();
-    await FirebaseFirestore.instance.collection('audio').add({
+    String downloadURL = await ref.getDownloadURL();
+
+    // Saving data in Firestore
+    await firebaseFirestore.collection('audio').add({
       'title': _voiceTitleController.text,
       'url': downloadURL,
     });
+print("working");
+    // Saving data locally as a file
+    Directory appDir = await getApplicationDocumentsDirectory();
+    File localFile = File('${appDir.path}/post_$postID.txt');
+    print("working1");
+    await localFile.writeAsString(_voiceTitleController.text);
   }
+
 
   Future<void> update() async {
     if (_file != null) {
@@ -200,12 +220,16 @@ class _VoiceUpdateScreenState extends State<VoiceUpdateScreen> {
     }
 
     // Update the tutorial document in Firestore
+    // Update the tutorial document in Firestore
     await FirebaseFirestore.instance
         .collection('audio')
         .doc(widget.id!)
         .update({
       'title': _voiceTitleController.text,
       'url': downloadURL ?? _voiceUrlController.text,
-    });
+    }).whenComplete(() =>
+    // Navigate to HomeScreen after successful upload
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => HomeScreen())));
   }
 }

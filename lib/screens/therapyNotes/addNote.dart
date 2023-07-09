@@ -3,10 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/public/flutter_sound_player.dart';
+
 import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
 import 'package:kathaappctse/screens/voices/client/voicesModel.dart';
 
 import '../../../utils/config.dart';
+import '../homeScreenTherapist.dart';
 import '../login&signup&splashscreen/userModel.dart';
 import 'viewAllNote.dart';
 
@@ -82,14 +84,18 @@ Widget build(BuildContext context) {
         ),
       ),
       actions: [
-        // IconButton(
-        //   icon: const Icon(
-        //     Icons.notifications_none,
-        //     color: Color(0xFF545D68),
-        //   ),
-        //   onPressed: () {},
-        // ),
+        IconButton(
+          icon: Icon(Icons.home),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => HomeScreenTherapist(),
+            ));
+          },
+        ),
+
+
       ],
+
     ),
     body: Container(
       decoration: BoxDecoration(

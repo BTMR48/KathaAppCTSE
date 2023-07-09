@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kathaappctse/screens/help.dart';
+import 'package:kathaappctse/screens/login&signup&splashscreen/loginScreen.dart';
 import 'package:kathaappctse/screens/therapy/client/viewAllTutorialClient.dart';
 import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
-import 'package:kathaappctse/screens/userManagement/viewUser.dart';
 
 import 'therapyNotes/ViewAllNote.dart';
 import 'therapyNotes/addNote.dart';
@@ -34,6 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               icon: Icon(Icons.logout),
               onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                ));
                 // Perform logout action
               },
 
@@ -41,7 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               icon: Icon(Icons.help),
               onPressed: () {
-                // Perform logout action
+
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => HelpScreen(),
+                ));
               },
             ),
           ],
@@ -65,21 +72,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   child: Text(
-
-                  "Voices",
-                ),),
-                ElevatedButton(onPressed:(){
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ViewAllTutorialClientClass() ) ) ;},
-                  child: Text(
-                      "Therapy Page client"
-                  ),),
-                ElevatedButton(onPressed:(){
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ViewAllUsersClass() ) ) ;},
-                  child: Text(
-                      "User Settings"
-                  ),),
                     'ආයුබෝවන්!',
                     style: TextStyle(
                       fontSize: 24.0,
@@ -163,7 +155,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-
               ],
             ),
           ),

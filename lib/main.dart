@@ -3,8 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kathaappctse/screens/homeScreenUser.dart';
 import 'package:kathaappctse/screens/login&signup&splashscreen/splash_screen.dart';
-import 'package:kathaappctse/screens/voices/client/addvoice.dart';
-
+import '../screens/homeScreenUser.dart';
+import '../screens/homeScreentherapist.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'screens/login&signup&splashscreen/loginScreen.dart';
@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.pink,
           ),
+
           home: SplashScreen(),
           debugShowCheckedModeBanner: false,
 

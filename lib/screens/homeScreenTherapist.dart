@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kathaappctse/screens/homeScreenUser.dart';
+import 'package:kathaappctse/screens/login&signup&splashscreen/loginScreen.dart';
 import 'package:kathaappctse/screens/therapy/client/viewAllTutorialClient.dart';
 import 'package:kathaappctse/screens/therapy/therapist/addtutorials.dart';
 import 'package:kathaappctse/screens/therapy/therapist/viewAllTutorials.dart';
@@ -26,12 +28,16 @@ class _HomeScreenTherapistState extends State<HomeScreenTherapist> {
       child: Scaffold(
         appBar: AppBar(
           actions: [
+
             IconButton(
               icon: Icon(Icons.logout),
               onPressed: () {
-                // Perform logout action
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                ));
               },
             ),
+
           ],
         ),
         body: Container(
@@ -177,7 +183,7 @@ class _HomeScreenTherapistState extends State<HomeScreenTherapist> {
                             Icon(Icons.note_add, size: 60.0, color: Colors.white),
                             SizedBox(height: 16.0),
                             Text(
-                              'Notes note page',
+                              'Notes list page',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 24.0,

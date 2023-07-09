@@ -272,7 +272,11 @@ class _UpdateAudioRecorderState extends State<UpdateAudioRecorder> {
 
 
 
-  Future<void>  addnewvoice() async {
+
+
+
+
+  Future<void> addnewvoice() async {
     if (_audioPath.isNotEmpty) {
       // Get a reference to the audio file
       final audioFile = File(_audioPath);
@@ -296,6 +300,11 @@ class _UpdateAudioRecorderState extends State<UpdateAudioRecorder> {
         'title': _titleController.text.trim(),
       });
 
+      // Save the audio file locally
+      Directory appDir = await getApplicationDocumentsDirectory();
+      File localFile = File('${appDir.path}/audio_file.mp3');
+      await audioFile.copy(localFile.path);
+
       // Display a success message
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Audio uploaded successfully.')));
@@ -306,4 +315,6 @@ class _UpdateAudioRecorderState extends State<UpdateAudioRecorder> {
       print("not added voice");
     }
   }
+
+
 }

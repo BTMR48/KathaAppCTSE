@@ -7,6 +7,7 @@ import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
 import 'package:kathaappctse/screens/voices/client/voicesModel.dart';
 
 import '../../../utils/config.dart';
+import '../../homeScreenTherapist.dart';
 
 
 
@@ -55,7 +56,7 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.pink,
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(
@@ -68,7 +69,7 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
           },
         ),
         title: Text(
-          'Listen to audio',
+          'Voices',
           style: TextStyle(
             fontFamily: 'Varela',
             fontSize: 24.0,
@@ -76,13 +77,16 @@ class _ViewOneVoiceScreenState extends State<ViewOneVoiceScreen> {
           ),
         ),
         actions: [
-          // IconButton(
-          //   icon: const Icon(
-          //     Icons.notifications_none,
-          //     color: Color(0xFF545D68),
-          //   ),
-          //   onPressed: () {},
-          // ),
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => HomeScreenTherapist(),
+              ));
+            },
+          ),
+
+
         ],
       ),
       body: Container(

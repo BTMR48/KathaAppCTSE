@@ -71,13 +71,13 @@ class _AllVoiceClientScreenState extends State<AllVoiceClientScreen> {
         backgroundColor: Colors.grey[200],
 
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.pink,
           elevation: 0.0,
           centerTitle: true,
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back,
-              color: Color(0xFF545D68),
+              color: const Color(0xFF545D68),
             ),
             onPressed: () {
               Navigator.of(context).pop();

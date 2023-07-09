@@ -3,10 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/public/flutter_sound_player.dart';
 import 'package:kathaappctse/screens/therapyNotes/viewAddedNotesAll.dart';
+
+
 import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
 import 'package:kathaappctse/screens/voices/client/voicesModel.dart';
 
 import '../../../utils/config.dart';
+
+import '../homeScreenTherapist.dart';
 import 'noteModel.dart';
 import 'noteUpdateScreen.dart';
 
@@ -70,7 +74,7 @@ class _ViewOneNoteUpdateScreenState extends State<ViewOneNoteUpdateScreen> {
           },
         ),
         title: Text(
-          'Notes',
+          'Note',
           style: TextStyle(
             fontFamily: 'Varela',
             fontSize: 24.0,
@@ -78,13 +82,16 @@ class _ViewOneNoteUpdateScreenState extends State<ViewOneNoteUpdateScreen> {
           ),
         ),
         actions: [
-          // IconButton(
-          //   icon: const Icon(
-          //     Icons.notifications_none,
-          //     color: Color(0xFF545D68),
-          //   ),
-          //   onPressed: () {},
-          // ),
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => HomeScreenTherapist(),
+              ));
+            },
+          ),
+
+
         ],
       ),
       body: Container(
@@ -106,7 +113,7 @@ class _ViewOneNoteUpdateScreenState extends State<ViewOneNoteUpdateScreen> {
                     style: TextStyle(
                       fontSize: 32.0,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: Colors.black,
                       shadows: [
                         Shadow(
                           blurRadius: 2.0,
@@ -125,19 +132,37 @@ class _ViewOneNoteUpdateScreenState extends State<ViewOneNoteUpdateScreen> {
                     color: Colors.greenAccent,
                     onPressed: _isPlaying ? stopPlayback : startPlayback,
                   ),
-                  Text(
-                    oneNote!.noteName,
-                    style: TextStyle(
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                      shadows: [
-                        Shadow(
-                          blurRadius: 2.0,
-                          color: Colors.grey,
-                          offset: Offset(1.0, 1.0),
+                  Container(
+                    width: 300, // specify the width of the container
+                    height: 100, // specify the height of the container
+                    decoration: BoxDecoration(
+                      color: Colors.white, // set the background color of the box
+                      borderRadius: BorderRadius.circular(10), // add a border radius to the box
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5), // add a shadow to the box
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: Offset(0, 3),
                         ),
                       ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        oneNote!.noteName,
+                        style: TextStyle(
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 2.0,
+                              color: Colors.grey,
+                              offset: Offset(1.0, 1.0),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -148,41 +173,59 @@ class _ViewOneNoteUpdateScreenState extends State<ViewOneNoteUpdateScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                        onPressed: () async {
-                          await FirebaseFirestore.instance
-                              .collection('notes')
-                              .doc(widget.noteID)
-                              .delete().whenComplete(() => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      AllNotesAddedScreen(
-                                      )
-                              )
-                          )
+                      ElevatedButton.icon(
+                        icon: Icon(Icons.edit),
+                        label: Text(
+                          'Edit',
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => NoteUpdateScreen(id: widget.noteID),
+                            ),
                           );
                         },
-                        child: Text("Delete"),
                         style: ButtonStyle(
-                          textStyle: MaterialStateProperty.all(
-                            const TextStyle(fontSize: 12),
-                          ),
-                          backgroundColor: MaterialStateProperty.all(
-                            Colors.red,
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+                          elevation: MaterialStateProperty.all<double>(0),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(color: Colors.orange),
+                            ),
                           ),
                         ),
                       ),
                       SizedBox(
-                        width:  5,
+                        width: 10,
                       ),
-                      ElevatedButton(
-                        child: Text('Edit'),
-                        onPressed: () {
-                          Navigator.of(context).push(
+                      ElevatedButton.icon(
+                        icon: Icon(Icons.delete),
+                        label: Text(
+                          'Delete',
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                        onPressed: () async {
+                          await FirebaseFirestore.instance
+                            .collection('notes')
+                            .doc(widget.noteID)
+                            .delete().whenComplete(() => Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      NoteUpdateScreen( id : widget.noteID,)));
+                                builder: (context) => AllNotesAddedScreen(),
+                              ),
+                            ));
                         },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                          elevation: MaterialStateProperty.all<double>(0),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(color: Colors.red),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   )

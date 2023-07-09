@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import '../../../utils/config.dart';
 import '../../login&signup&splashscreen/loginScreen.dart';
 import 'VoiceUpdate.dart';
-import 'addvoice.dart';
+
 import 'oneVoiceScreen.dart';
 
 
@@ -74,7 +74,7 @@ class _AllVoiceTherapistScreenState extends State<AllVoiceTherapistScreen> {
         backgroundColor: Colors.grey[200],
 
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.pink,
           elevation: 0.0,
           centerTitle: true,
           leading: IconButton(

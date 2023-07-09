@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     //create a timer of 2 seconds
-    Timer(const Duration(seconds:3), () {
+    Timer(const Duration(seconds:5), () {
       // if(finish == ){
       //
       // }
