@@ -63,7 +63,7 @@ Widget build(BuildContext context) {
   double width = MediaQuery.of(context).size.width;
   return Scaffold(
     appBar: AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.pink,
       elevation: 0.0,
       centerTitle: true,
       leading: IconButton(
@@ -76,7 +76,7 @@ Widget build(BuildContext context) {
         },
       ),
       title: Text(
-        'Voices',
+        'Note Management',
         style: TextStyle(
           fontFamily: 'Varela',
           fontSize: 24.0,

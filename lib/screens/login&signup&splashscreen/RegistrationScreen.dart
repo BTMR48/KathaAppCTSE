@@ -4,13 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kathaappctse/screens/login&signup&splashscreen/userModel.dart';
-
 import '../../utils/config.dart';
 import '../homeScreenUser.dart';
-
-
-
-
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -30,6 +25,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final emailEditingController = new TextEditingController();
   final passwordEditingController = new TextEditingController();
   final confirmPasswordEditingController = new TextEditingController();
+  final addressController = new TextEditingController();
+  final phoneNumberController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +75,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           hintText: "Second Name",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ));
+    final addressField = TextFormField(
+        autofocus: false,
+        controller: addressController,
+        keyboardType: TextInputType.streetAddress,
+        validator: (value){
+          if (value!.isEmpty) {
+            return ("address Can't be Empty ");
+          }
+        },
+        onSaved: (value) {
+          addressController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.account_circle),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Address",
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ));
     //email  field
     final emailField = TextFormField(
         autofocus: false,
@@ -103,6 +119,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           prefixIcon: Icon(Icons.mail),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Email",
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ));
+    final phoneNumField = TextFormField(
+        autofocus: false,
+        controller: phoneNumberController,
+        keyboardType: TextInputType.phone,
+        validator: (value){
+          if (value!.isEmpty) {
+            return ("address Can't be Empty ");
+          }
+        },
+        onSaved: (value) {
+          phoneNumberController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.account_circle),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "mobile Number",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ));
     //password  field
@@ -225,6 +260,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       SizedBox(height: 20),
                       secondNameField,
                       SizedBox(height: 20),
+                      addressField,
+                      SizedBox(height: 20),
+                      phoneNumField,
+                      SizedBox(height: 20),
                       emailField,
                       SizedBox(height: 20),
                       passwordField,
@@ -270,6 +309,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.uid = user.uid;
     userModel.firstName = firstNameEditingController.text;
     userModel.secondName = secondNameEditingController.text;
+    userModel.address = addressController.text;
+    userModel.phoneNumber = phoneNumberController.text;
 
     await firebaseFirestore
         .collection("users")

@@ -61,7 +61,7 @@ class _ViewOneNoteUpdateScreenState extends State<ViewOneNoteUpdateScreen> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.pink,
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(

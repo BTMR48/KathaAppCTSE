@@ -5,7 +5,6 @@ import 'package:kathaappctse/screens/login&signup&splashscreen/loginScreen.dart'
 import 'package:kathaappctse/screens/therapy/client/viewAllTutorialClient.dart';
 import 'package:kathaappctse/screens/therapy/therapist/addtutorials.dart';
 import 'package:kathaappctse/screens/therapy/therapist/viewAllTutorials.dart';
-import 'package:kathaappctse/screens/voices/therapist/viewAllVoicesClients.dart';
 import 'package:kathaappctse/screens/voices/client/viewAllVoicesClients.dart';
 
 import 'therapyNotes/ViewAllNote.dart';
@@ -78,7 +77,7 @@ class _HomeScreenTherapistState extends State<HomeScreenTherapist> {
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AllVoiceTherapistScreen(),
+                            builder: (context) => AllVoiceClientScreen(),
                           ));
                         },
                         style: ElevatedButton.styleFrom(

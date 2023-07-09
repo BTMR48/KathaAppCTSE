@@ -39,7 +39,7 @@ class _AllNotesAddedScreenState extends State<AllNotesAddedScreen> {
   }
 
   List<Note> mapRecords(QuerySnapshot<Object?> records) {
-    var _list = records?.docs
+    var _list = records.docs
         .map(
           (notes) => Note(
 
@@ -52,7 +52,7 @@ class _AllNotesAddedScreenState extends State<AllNotesAddedScreen> {
     )
         .toList();
 
-    return _list ?? [];
+    return _list ;
   }
 
 
@@ -92,7 +92,7 @@ class _AllNotesAddedScreenState extends State<AllNotesAddedScreen> {
           },
         ),
         title: Text(
-          'Voices',
+          'All Notes',
           style: TextStyle(
             fontFamily: 'Varela',
             fontSize: 24.0,

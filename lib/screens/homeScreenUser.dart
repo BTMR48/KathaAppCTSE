@@ -59,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 image: AssetImage(Config.app_background2), fit: BoxFit.fill),
           ),
 
+
           child: SafeArea(
             child: Column(
               children: [
